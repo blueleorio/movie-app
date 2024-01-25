@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 export const Test = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,9 @@ export const Test = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        // Simulate a 3-second delay
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+
         const response = await axios.get(
           "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
           {
@@ -54,7 +58,7 @@ export const Test = () => {
     fetchMovies();
   }, []);
 
-  if (isLoading) return <p>Loading</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <>
