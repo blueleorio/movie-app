@@ -47,3 +47,31 @@ export const HomePage = () => {
 //     })
 //     .catch((err) => setIsLoading(false));
 // }, []);
+
+// useEffect(() => {
+//   const fetchMovies = async () => {
+//     try {
+//       // Simulate a 3-second delay
+//       await new Promise((resolve) => setTimeout(resolve, 3000));
+
+//       const response = await axios.get(
+//         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+//         {
+//           headers: {
+//             Accept: "application/json",
+//             Authorization:
+//               "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
+//           },
+//         }
+//       );
+
+//       setIsLoading(false);
+//       setMovie(response.data.results);
+//     } catch (error) {
+//       console.error("Error fetching movies:", error);
+//       setIsLoading(false);
+//     }
+//   };
+
+//   fetchMovies();
+// }, []);

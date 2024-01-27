@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import { HomePage } from "../pages/HomePage";
 // import Discovery from "../pages/Discovery";
 import BasicModal from "../components/BasicModal";
-// import MovieDetail from "../pages/MovieDetail";
+import MovieDetail from "../pages/MovieDetail";
 // import FavoritePage from "../pages/Favorite";
 import NoMatch from "../pages/NoMatch";
 import { useAuth } from "../contexts/AuthContext";
@@ -32,7 +32,7 @@ function Router() {
           {/* <Route index element={<Homepage />} /> */}
           <Route index element={<HomePage />} />
           {/* <Route path="discovery/:pageId" element={<Discovery />} /> */}
-          {/* <Route path="/movie/:movieId" element={<MovieDetail />} /> */}
+          <Route path="/movie/:movieId" element={<MovieDetail />} />
           <Route path="/form" element={<BasicModal />} />
           <Route path="*" element={<NoMatch />} />
           {/* <Route

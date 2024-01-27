@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import apiService from "../api/apiService";
-import { API_KEY } from "../api/config";
+import axios from "axios";
+
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import MDetailCard from "../components/MDetailCard";
+// import MDetailCard from "../components/MDetailCard";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -14,18 +14,27 @@ function MovieItemPage() {
   let { movieId } = useParams();
   const [loading, setLoading] = useState();
   const [movieDetail, setMovieDetail] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await apiService.get(
-          `movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=videos`
+        const response = await axios.get(
+          `movie/${movieId}?language=en-US&append_to_response=videos`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
+            },
+          }
         );
-        console.log(res.data);
-        setMovieDetail(res.data);
+        console.log(response.data);
+        setMovieDetail(response.data);
         setLoading(false);
       } catch (e) {
-        console.log(e.message);
+        console.log("Error fetching movies:", e.message);
+        setLoading(false);
       }
     };
     fetchData();
@@ -38,7 +47,7 @@ function MovieItemPage() {
       </Typography>
       <Divider />
 
-      <MDetailCard movieDetail={movieDetail} loading={loading} />
+      {/* <MDetailCard movieDetail={movieDetail} loading={isLoading} /> */}
     </>
   );
 }
