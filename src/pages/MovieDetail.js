@@ -7,6 +7,8 @@ import Divider from "@mui/material/Divider";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+import Spinner from "../components/Spinner";
+
 function MovieDetail() {
   // let location = useLocation();
   let auth = useAuth();
@@ -14,34 +16,39 @@ function MovieDetail() {
 
   let { movieId } = useParams();
   console.log(movieId);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const [movieDetail, setMovieDetail] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`,
-          {
-            headers: {
-              Accept: "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
-            },
-          }
-        );
-        console.log(response.data);
-        setMovieDetail(response.data);
-        setLoading(false);
-      } catch (e) {
-        console.log("Error fetching movies:", e.message);
-        setLoading(false);
-      }
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
+        },
+      };
+
+      fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`,
+        options
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          setMovieDetail(response);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
     };
     fetchData();
   }, [movieId]);
 
+  if (loading) return <Spinner />;
   return (
     <>
       <Typography variant="h5" mb={2}>
