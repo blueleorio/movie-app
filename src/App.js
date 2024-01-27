@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "./routes/Router";
 // import { AuthProvider } from "./contexts/AuthContext";
 import ThemeProvider from "./contexts/ThemeProvider";
-import { Test } from "./components/random";
+// import { Test } from "./components/random";
 // TODO:  Components, what and what not
 // API Document: https://developer.themoviedb.org/reference/intro/getting-started
 // GITHUB Repo: https://github.com/blueleorio/movie-app

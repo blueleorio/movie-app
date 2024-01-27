@@ -12,14 +12,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-
+import Switch from "@mui/material/Switch";
+import { ThemeContext } from "../contexts/ThemeProvider";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function MainHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -124,7 +125,11 @@ function MainHeader() {
               </Button>
             ))}
           </Box>
-
+          <Box sx={{ flexGrow: 0 }}>
+            <IconButton onClick={toggleTheme}>
+              <Switch checked={isDarkTheme} />
+            </IconButton>
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

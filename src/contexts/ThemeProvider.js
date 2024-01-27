@@ -1,51 +1,73 @@
+import React, { createContext, useState } from "react";
 import { CssBaseline } from "@mui/material";
 import {
   createTheme,
   ThemeProvider as MUIThemeProvider,
 } from "@mui/material/styles";
 
-const PRIMARY = {
-  lighter: "#FFD07F",
-  light: "#FDA65D",
-  main: "#FF8243",
-  dark: "#E26A2C",
-  darker: "#cc571f",
+import lightTheme from "@mui/material/styles/createTheme";
+
+const DARK_PRIMARY = {
+  lighter: "#4A5568",
+  light: "#3E4656",
+  main: "#303645",
+  dark: "#21252E",
+  darker: "#15171E",
   contrastText: "#FFF",
 };
-const SECONDARY = {
-  lighter: "#D6E4FF",
-  light: "#84A9FF",
-  main: "#3366FF",
-  dark: "#1939B7",
-  darker: "#091A7A",
+const DARK_SECONDARY = {
+  lighter: "#546E7A",
+  light: "#455A64",
+  main: "#37474F",
+  dark: "#263238",
+  darker: "#1C2529",
   contrastText: "#FFF",
 };
-const SUCCESS = {
-  lighter: "#E9FCD4",
-  light: "#AAF27F",
-  main: "#54D62C",
-  dark: "#229A16",
-  darker: "#08660D",
+const DARK_SUCCESS = {
+  lighter: "#536E7A",
+  light: "#455A64",
+  main: "#389E34",
+  dark: "#2D7D2D",
+  darker: "#1E5725",
   contrastText: "#FFF",
 };
 
-function ThemeProvider({ children }) {
-  const themeOptions = {
-    palette: {
-      primary: PRIMARY,
-      secondary: SECONDARY,
-      success: SUCCESS,
+const DARK_THEME_OPTIONS = {
+  palette: {
+    mode: "dark", // Set the overall theme mode to dark
+    primary: DARK_PRIMARY,
+    secondary: DARK_SECONDARY,
+    success: DARK_SUCCESS,
+    background: {
+      default: "#121212", // Set a dark background color
     },
-    shape: { borderRadius: 8 },
+  },
+  typography: {
+    fontFamily: ["'Roboto', sans-serif"], // Adjust font for better readability
+  },
+  shape: { borderRadius: 8 }, // Keep rounded corners for consistency
+};
+
+const DARK_THEME = createTheme(DARK_THEME_OPTIONS);
+const LIGHT_THEME = createTheme(lightTheme);
+
+export const ThemeContext = createContext();
+function ThemeProvider({ children }) {
+  const [isDarkTheme, setIsDarkTheme] = useState(false); // Initial theme
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
   };
 
-  const theme = createTheme(themeOptions);
+  const theme = isDarkTheme ? DARK_THEME : LIGHT_THEME;
 
   return (
-    <MUIThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </MUIThemeProvider>
+    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
+      <MUIThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MUIThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 
