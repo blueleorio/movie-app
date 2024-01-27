@@ -7,10 +7,11 @@ import Divider from "@mui/material/Divider";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-function MovieItemPage() {
+function MovieDetail() {
   // let location = useLocation();
   let auth = useAuth();
   console.log(auth.user);
+
   let { movieId } = useParams();
   console.log(movieId);
   const [loading, setLoading] = useState();
@@ -55,4 +56,4 @@ function MovieItemPage() {
   );
 }
 
-export default MovieItemPage;
+export default MovieDetail;
