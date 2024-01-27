@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import Switch from "@mui/material/Switch";
 import { ThemeContext } from "../contexts/ThemeProvider";
 const pages = ["Products", "Pricing", "Blog"];
@@ -40,7 +40,7 @@ function MainHeader() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <GitHubIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -56,7 +56,7 @@ function MainHeader() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            ムービー
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -95,7 +95,7 @@ function MainHeader() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <GitHubIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -112,7 +112,7 @@ function MainHeader() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            ムービー
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -125,6 +125,7 @@ function MainHeader() {
               </Button>
             ))}
           </Box>
+          {/* Switch Theme toggle */}
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={toggleTheme}>
               <Switch checked={isDarkTheme} />
