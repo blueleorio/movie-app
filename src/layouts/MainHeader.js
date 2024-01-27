@@ -13,11 +13,18 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Switch from "@mui/material/Switch";
+
 import { ThemeContext } from "../contexts/ThemeProvider";
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useLocation } from "react-router-dom";
+
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function MainHeader() {
+  let location = useLocation();
+  let auth = useAuth();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { isDarkTheme, toggleTheme } = React.useContext(ThemeContext);
@@ -34,6 +41,10 @@ function MainHeader() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleLogout = () => {
+    // handleMenuClose(); //menu close before signout so that login won't pop up.
+    auth.signout();
   };
 
   return (
@@ -131,6 +142,7 @@ function MainHeader() {
               <Switch checked={isDarkTheme} />
             </IconButton>
           </Box>
+          {/* User Logo Icon */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
