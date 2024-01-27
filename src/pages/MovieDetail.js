@@ -12,6 +12,7 @@ function MovieItemPage() {
   let auth = useAuth();
   console.log(auth.user);
   let { movieId } = useParams();
+  console.log(movieId);
   const [loading, setLoading] = useState();
   const [movieDetail, setMovieDetail] = useState(null);
 
@@ -20,7 +21,7 @@ function MovieItemPage() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `movie/${movieId}?language=en-US&append_to_response=videos`,
+          `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`,
           {
             headers: {
               Accept: "application/json",
@@ -46,7 +47,9 @@ function MovieItemPage() {
         MOVIE INFO
       </Typography>
       <Divider />
-
+      <Typography variant="h5" mb={2}>
+        {movieDetail.budget}
+      </Typography>
       {/* <MDetailCard movieDetail={movieDetail} loading={isLoading} /> */}
     </>
   );
