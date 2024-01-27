@@ -3,40 +3,40 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 // import Homepage from "../pages/Homepage";
 // import Discovery from "../pages/Discovery";
-// import FormPage from "../pages/Form";
+import BasicModal from "../components/BasicModal";
 // import MovieDetail from "../pages/MovieDetail";
 // import FavoritePage from "../pages/Favorite";
-// import NoMatch from "../pages/NoMatch";
-// import { useAuth } from "../contexts/AuthContext";
+import NoMatch from "../pages/NoMatch";
+import { useAuth } from "../contexts/AuthContext";
 import { Test } from "../components/random";
 
 function Router() {
   let location = useLocation();
-  // let state = location.state;
-  // function RequireAuth({ children }) {
-  //   let auth = useAuth();
-  //   console.log("user status:", auth.user);
-  //   if (!auth.user) {
-  //     // Redirect them to the /login page, but save the current location they were
-  //     // trying to go to when they were redirected. This allows us to send them
-  //     // along to that page after they login, which is a nicer user experience
-  //     // than dropping them off on the home page.
+  let state = location.state;
+  function RequireAuth({ children }) {
+    let auth = useAuth();
+    console.log("user status:", auth.user);
+    if (!auth.user) {
+      // Redirect them to the /login page, but save the current location they were
+      // trying to go to when they were redirected. This allows us to send them
+      // along to that page after they login, which is a nicer user experience
+      // than dropping them off on the home page.
 
-  //     return <Navigate to="/form" state={{ from: location }} replace />;
-  //   }
-  //   return children;
-  // }
+      return <Navigate to="/form" state={{ from: location }} replace />;
+    }
+    return children;
+  }
   return (
     <>
       <Routes location={location}>
         <Route path="/" element={<MainLayout />}>
           {/* <Route index element={<Homepage />} /> */}
           <Route index element={<Test />} />
-          {/* <Route path="discovery/:pageId" element={<Discovery />} />
-          <Route path="/movie/:movieId" element={<MovieDetail />} />
-          <Route path="/form" element={<FormPage />} />
+          {/* <Route path="discovery/:pageId" element={<Discovery />} /> */}
+          {/* <Route path="/movie/:movieId" element={<MovieDetail />} /> */}
+          <Route path="/form" element={<BasicModal />} />
           <Route path="*" element={<NoMatch />} />
-          <Route
+          {/* <Route
             path="/favorite"
             element={
               <RequireAuth>
@@ -46,11 +46,11 @@ function Router() {
           /> */}
         </Route>
       </Routes>
-      {/* {state?.backgroundLocation && (
+      {state?.backgroundLocation && (
         <Routes>
-          <Route path="/form" element={<FormPage />} />
+          <Route path="/form" element={<BasicModal />} />
         </Routes>
-      )} */}
+      )}
     </>
   );
 }

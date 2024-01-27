@@ -1,103 +1,61 @@
-import { createContext, useReducer, useEffect } from "react";
-
-const initialState = {
-  isAuthenticated: false,
-  isInitialized: false,
-  user: null,
+import React, { useState, useContext, createContext, useEffect } from "react";
+import axios from "axios";
+const AuthContextType = {
+  user: "",
+  movies: [],
+  isLoading: true,
+  signin: null,
+  signout: null,
+  fetchMovies: null,
 };
+const AuthContext = createContext(AuthContextType);
 
-const INITIALIZE = "INITIALIZE";
-const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const LOGOUT = "LOGOUT";
+export function AuthProvider({ children }) {
+  let [user, setUser] = useState("");
+  let [movies, setMovies] = useState([]);
+  let [isLoading, setIsLoading] = useState(true);
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case INITIALIZE:
-      const { isAuthenticated, user } = action.payload;
-      return {
-        ...state,
-        isAuthenticated,
-        isInitialized: true,
-        user,
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
-      };
-    case LOGOUT:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-      };
-    default:
-      return state;
-  }
-};
+  let signin = (newUser, callback) => {
+    setUser(newUser);
+    console.log(user);
+    callback();
+  };
+  let signout = (callback) => {
+    setUser(null);
+    callback();
+  };
 
-const AuthContext = createContext({ ...initialState });
-
-function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        const username = window.localStorage.getItem("username");
-
-        if (username) {
-          dispatch({
-            type: INITIALIZE,
-            payload: { isAuthenticated: true, user: { username } },
-          });
-        } else {
-          dispatch({
-            type: INITIALIZE,
-            payload: { isAuthenticated: false, user: null },
-          });
-        }
-      } catch (err) {
-        console.error(err);
-        dispatch({
-          type: INITIALIZE,
-          payload: {
-            isAuthenticated: false,
-            user: null,
+  let fetchMovies = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
           },
-        });
-      }
-    };
-    initialize();
+        }
+      );
+
+      setMovies(response.data.results);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch movies on component mount
+  useEffect(() => {
+    fetchMovies();
   }, []);
 
-  const login = async (username, callback) => {
-    window.localStorage.setItem("username", username);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: { user: { username } },
-    });
-    callback();
-  };
+  let value = { user, movies, isLoading, signin, signout, fetchMovies };
 
-  const logout = async (callback) => {
-    window.localStorage.removeItem("username");
-    dispatch({ type: LOGOUT });
-    callback();
-  };
-
-  return (
-    <AuthContext.Provider
-      value={{
-        ...state,
-        login,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export { AuthContext, AuthProvider };
+export function useAuth() {
+  return useContext(AuthContext);
+}
