@@ -1,9 +1,9 @@
 import React from "react";
-import Spinner from "./Spinner";
+import Spinner from "../components/Spinner";
 import Grid from "@mui/material/Grid";
 import { useAuth } from "../contexts/AuthContext";
 
-export const Test = () => {
+export const HomePage = () => {
   const { movies, isLoading } = useAuth();
 
   if (isLoading) return <Spinner />;

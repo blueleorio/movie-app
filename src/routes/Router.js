@@ -1,14 +1,13 @@
 import * as React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-// import Homepage from "../pages/Homepage";
+import { HomePage } from "../pages/HomePage";
 // import Discovery from "../pages/Discovery";
 import BasicModal from "../components/BasicModal";
 // import MovieDetail from "../pages/MovieDetail";
 // import FavoritePage from "../pages/Favorite";
 import NoMatch from "../pages/NoMatch";
 import { useAuth } from "../contexts/AuthContext";
-import { Test } from "../components/random";
 
 function Router() {
   let location = useLocation();
@@ -31,7 +30,7 @@ function Router() {
       <Routes location={location}>
         <Route path="/" element={<MainLayout />}>
           {/* <Route index element={<Homepage />} /> */}
-          <Route index element={<Test />} />
+          <Route index element={<HomePage />} />
           {/* <Route path="discovery/:pageId" element={<Discovery />} /> */}
           {/* <Route path="/movie/:movieId" element={<MovieDetail />} /> */}
           <Route path="/form" element={<BasicModal />} />
