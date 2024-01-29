@@ -9,7 +9,15 @@ import { CardActionArea } from "@mui/material";
 import { Link } from "react-router-dom";
 export default function MovieCard({ movie }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        transition: "transform 0.3s ease-in-out",
+        "&:hover": {
+          transform: "scale(1.1)",
+        },
+      }}
+    >
       <CardActionArea LinkComponent={Link} to={`/movie/${movie.id}`}>
         <CardMedia
           component="img"
