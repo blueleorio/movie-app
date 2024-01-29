@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
 // import MDetailCard from "../components/MDetailCard";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -51,13 +55,39 @@ function MovieDetail() {
   if (loading) return <Spinner />;
   return (
     <>
-      <Typography variant="h5" mb={2}>
-        MOVIE INFO
-      </Typography>
-      <Divider />
-      <Typography variant="h5" mb={2}>
-        {movieDetail.budget}
-      </Typography>
+      <Card elevation={3}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} md={4} lg={3}>
+            <CardMedia
+              component="img"
+              alt={`Backdrop for ${movieDetail.original_title}`}
+              height="450"
+              image={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={8} lg={9}>
+            <CardContent>
+              <Typography variant="h4">
+                <Link href={movieDetail.homepage} underline="hover">
+                  {movieDetail.original_title}
+                </Link>
+                <br />
+                <span className="tag release_date">
+                  ({movieDetail.release_date})
+                </span>
+              </Typography>
+
+              <div>
+                <Typography variant="h4" className="tagline">
+                  {movieDetail.tagline}
+                </Typography>
+                <Typography variant="h5">Overview</Typography>
+                <Typography>{movieDetail.overview}</Typography>
+              </div>
+            </CardContent>
+          </Grid>
+        </Grid>
+      </Card>
       {/* <MDetailCard movieDetail={movieDetail} loading={isLoading} /> */}
     </>
   );

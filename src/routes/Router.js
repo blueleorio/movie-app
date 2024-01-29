@@ -2,12 +2,13 @@ import * as React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import { HomePage } from "../pages/HomePage";
-// import Discovery from "../pages/Discovery";
-import BasicModal from "../components/BasicModal";
+import LogInModal from "../components/LogInModal";
 import MovieDetail from "../pages/MovieDetail";
 // import FavoritePage from "../pages/Favorite";
 import NoMatch from "../pages/NoMatch";
 import { useAuth } from "../contexts/AuthContext";
+// import LogInForm from "../components/LogInForm";
+import MovieDetails from "../pages/Test";
 
 function Router() {
   let location = useLocation();
@@ -29,11 +30,10 @@ function Router() {
     <>
       <Routes location={location}>
         <Route path="/" element={<MainLayout />}>
-          {/* <Route index element={<Homepage />} /> */}
           <Route index element={<HomePage />} />
           <Route path="/page/:pageId" element={<HomePage />} />
           <Route path="/movie/:movieId" element={<MovieDetail />} />
-          <Route path="/form" element={<BasicModal />} />
+          <Route path="/form" element={<LogInModal />} />
           <Route path="*" element={<NoMatch />} />
           {/* <Route
             path="/favorite"
@@ -47,7 +47,7 @@ function Router() {
       </Routes>
       {state?.backgroundLocation && (
         <Routes>
-          <Route path="/form" element={<BasicModal />} />
+          <Route path="/form" element={<LogInModal />} />
         </Routes>
       )}
     </>

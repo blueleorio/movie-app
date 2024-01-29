@@ -1,6 +1,7 @@
 import React from "react";
 import Spinner from "../components/Spinner";
 import Grid from "@mui/material/Grid";
+
 import { useAuth } from "../contexts/AuthContext";
 import MovieCard from "../components/MCard";
 import CustomAccordion from "../components/CustomAccordion";

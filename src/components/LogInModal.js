@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function LogInModal() {
   const navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
