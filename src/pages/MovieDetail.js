@@ -7,11 +7,21 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
+import { CardActionArea } from "@mui/material";
+import Chip from "@mui/material/Chip";
+
 // import MDetailCard from "../components/MDetailCard";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 import Spinner from "../components/Spinner";
+
+const formatCurrency = (value) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
+};
 
 function MovieDetail() {
   // let location = useLocation();
@@ -58,12 +68,14 @@ function MovieDetail() {
       <Card elevation={3}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <CardMedia
-              component="img"
-              alt={`Backdrop for ${movieDetail.original_title}`}
-              height="450"
-              image={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`}
-            />
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                alt={`Backdrop for ${movieDetail.original_title}`}
+                width="auto"
+                image={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`}
+              />
+            </CardActionArea>
           </Grid>
           <Grid item xs={12} sm={6} md={8} lg={9}>
             <CardContent>
@@ -78,13 +90,42 @@ function MovieDetail() {
               </Typography>
 
               <div>
-                <Typography variant="h4" className="tagline">
+                <Typography
+                  variant="h4"
+                  className="tagline"
+                  sx={{ textAlign: "center" }}
+                >
                   {movieDetail.tagline}
                 </Typography>
-                <Typography variant="h5">Overview</Typography>
-                <Typography>{movieDetail.overview}</Typography>
+                <Typography variant="h5" style={{ marginTop: "8px" }}>
+                  <strong>Overview</strong>
+                </Typography>
+                <Typography style={{ marginTop: "8px" }}>
+                  {movieDetail.overview}
+                </Typography>
+                <Typography variant="h5" style={{ marginTop: "8px" }}>
+                  <strong>Budget:</strong> {formatCurrency(movieDetail.budget)}
+                </Typography>
+                <Typography variant="h5" style={{ marginTop: "8px" }}>
+                  <strong>Status:</strong> {movieDetail.status}
+                </Typography>
               </div>
             </CardContent>
+            <Divider variant="middle" style={{ marginBottom: "8px" }}>
+              Genres
+            </Divider>
+            <Grid container spacing={1} sx={{ justifyContent: "center" }}>
+              {movieDetail.genres.map((genre) => (
+                <Grid item key={genre.id}>
+                  <Chip
+                    label={genre.name}
+                    component="button"
+                    variant="outlined"
+                    clickable
+                  />
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
         </Grid>
       </Card>
