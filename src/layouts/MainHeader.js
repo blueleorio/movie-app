@@ -19,7 +19,8 @@ function MainHeader() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ justifyContent: "center" }}>
+          {/* Your existing components */}
           <Link
             to="/page/1"
             style={{ textDecoration: "none", color: "inherit" }}
@@ -44,30 +45,7 @@ function MainHeader() {
             ムービー
           </Typography>
 
-          <Link
-            to="/page/1"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <GitHubIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          </Link>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/page/1"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            ムービー
-          </Typography>
+          {/* Additional components */}
 
           {/* Switch Theme toggle */}
           <Box sx={{ flexGrow: 0 }}>
