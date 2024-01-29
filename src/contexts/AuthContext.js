@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 import axios from "axios";
+
 const AuthContextType = {
   user: "",
   movies: [],
@@ -7,19 +8,23 @@ const AuthContextType = {
   signin: null,
   signout: null,
   fetchMovies: null,
+  selectedGenreId: null, // New state variable for selected genre ID
+  setSelectedGenreId: null, // New function to set selected genre ID
 };
+
 const AuthContext = createContext(AuthContextType);
 
 export function AuthProvider({ children }) {
-  let [user, setUser] = useState("");
-  let [movies, setMovies] = useState([]);
-  let [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedGenreId, setSelectedGenreId] = useState(null);
 
   let signin = (newUser, callback) => {
     setUser(newUser);
-    console.log(user);
     callback();
   };
+
   let signout = (callback) => {
     setUser(null);
     callback();
@@ -46,12 +51,30 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Fetch movies on component mount
   useEffect(() => {
     fetchMovies();
   }, []);
 
-  let value = { user, movies, isLoading, signin, signout, fetchMovies };
+  // Function to set the selected genre ID
+  const handleSetSelectedGenreId = (genreId) => {
+    setSelectedGenreId(genreId);
+  };
+
+  // Filter movies based on the selected genre ID
+  const filteredMovies = selectedGenreId
+    ? movies.filter((movie) => movie.genre_ids.includes(selectedGenreId))
+    : movies;
+
+  let value = {
+    user,
+    movies: filteredMovies, // Use the filteredMovies instead of the original movies
+    isLoading,
+    signin,
+    signout,
+    fetchMovies,
+    selectedGenreId,
+    setSelectedGenreId: handleSetSelectedGenreId,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
