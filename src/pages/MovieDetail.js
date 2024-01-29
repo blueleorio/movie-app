@@ -111,7 +111,7 @@ function MovieDetail() {
               </div>
             </CardContent>
             <Divider variant="middle" style={{ marginBottom: "8px" }}>
-              Genres
+              ID: {movieDetail.id}
             </Divider>
             <Grid container spacing={1} sx={{ justifyContent: "center" }}>
               {movieDetail.genres.map((genre) => (
