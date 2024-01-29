@@ -25,13 +25,14 @@ export default function MovieCard({ movie }) {
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={`Backdrop for ${movie.title}`}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent sx={{ minHeight: 160 }}>
+          <Typography gutterBottom variant="h6" component="div">
             {movie.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            <strong>Release Date:</strong> {movie.release_date} <br />
+            <strong>Score:</strong> {movie.vote_average} <br />
+            <strong>Total Vote:</strong> {movie.vote_count}
           </Typography>
         </CardContent>
       </CardActionArea>
