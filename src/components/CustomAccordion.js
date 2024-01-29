@@ -20,14 +20,17 @@ const CustomAccordion = () => {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<SortIcon />}>
-        <Typography>Search & Sort</Typography>
+        <Typography variant="h6" align="center">
+          OPTION
+        </Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails style={{ display: "flex", flexDirection: "column" }}>
         <TextField
           label="Search"
           variant="outlined"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ flex: 1 }} // Set flex to 1 to fill the width
         />
         <IconButton color="primary" onClick={handleSearch}>
           <SearchIcon />

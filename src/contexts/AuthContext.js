@@ -8,8 +8,10 @@ const AuthContextType = {
   signin: null,
   signout: null,
   fetchMovies: null,
-  selectedGenreId: null, // New state variable for selected genre ID
-  setSelectedGenreId: null, // New function to set selected genre ID
+  selectedGenreId: null,
+  setSelectedGenreId: null,
+  currentPage: 1,
+  setPage: null,
 };
 
 const AuthContext = createContext(AuthContextType);
@@ -19,6 +21,7 @@ export function AuthProvider({ children }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedGenreId, setSelectedGenreId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   let signin = (newUser, callback) => {
     setUser(newUser);
@@ -33,7 +36,7 @@ export function AuthProvider({ children }) {
   let fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+        `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${currentPage}`,
         {
           headers: {
             Accept: "application/json",
@@ -53,11 +56,16 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     fetchMovies();
-  }, []);
+  }, [currentPage]); // eslint-disable-line
 
   // Function to set the selected genre ID
   const handleSetSelectedGenreId = (genreId) => {
     setSelectedGenreId(genreId);
+  };
+
+  // Function to set the current page
+  const handleSetPage = (newPage) => {
+    setCurrentPage(newPage);
   };
 
   // Filter movies based on the selected genre ID
@@ -74,6 +82,8 @@ export function AuthProvider({ children }) {
     fetchMovies,
     selectedGenreId,
     setSelectedGenreId: handleSetSelectedGenreId,
+    currentPage,
+    setPage: handleSetPage,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

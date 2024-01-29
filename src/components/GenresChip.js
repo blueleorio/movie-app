@@ -47,7 +47,7 @@ export default function GenresChips() {
   };
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} sx={{ justifyContent: "center" }}>
       {genre.map((genre) => (
         <Grid item key={genre.id}>
           <Chip
