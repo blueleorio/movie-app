@@ -31,7 +31,7 @@ function Router() {
         <Route path="/" element={<MainLayout />}>
           {/* <Route index element={<Homepage />} /> */}
           <Route index element={<HomePage />} />
-          {/* <Route path="discovery/:pageId" element={<Discovery />} /> */}
+          <Route path="/page/:pageId" element={<HomePage />} />
           <Route path="/movie/:movieId" element={<MovieDetail />} />
           <Route path="/form" element={<BasicModal />} />
           <Route path="*" element={<NoMatch />} />

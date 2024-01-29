@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import { useAuth } from "../contexts/AuthContext";
 import MovieCard from "../components/MCard";
 import CustomAccordion from "../components/CustomAccordion";
+import Paging from "../components/Paging";
 
 export const HomePage = () => {
   const { movies, isLoading } = useAuth();
@@ -11,9 +12,12 @@ export const HomePage = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <Grid container spacing={3} justifyContent="center">
+    <Grid container spacing={3} justifyContent="center" alignItems="center">
       <Grid item xs={12} md={9}>
         <CustomAccordion />
+      </Grid>
+      <Grid item xs={12} md={9} justifyContent="center">
+        <Paging />
       </Grid>
       <Grid item xs={12} md={9}>
         <Grid container spacing={3}>
