@@ -35,7 +35,7 @@ export default function GenresChips() {
       }
     };
     fetchGenre();
-  }, [movies]);
+  }, []);
 
   const handleChipClick = (GenreId) => {
     // Toggle selection on chip click
@@ -52,7 +52,7 @@ export default function GenresChips() {
         <Grid item key={genre.id}>
           <Chip
             label={genre.name}
-            component="button" // Use button instead of anchor for better accessibility
+            component="button"
             variant={selectedGenreId === genre.id ? "filled" : "outlined"}
             clickable
             onClick={() => handleChipClick(genre.id)}
