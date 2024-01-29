@@ -2,7 +2,7 @@ import React from "react";
 import Spinner from "../components/Spinner";
 import Grid from "@mui/material/Grid";
 import { useAuth } from "../contexts/AuthContext";
-
+import MovieCard from "../components/MCard";
 export const HomePage = () => {
   const { movies, isLoading } = useAuth();
 
@@ -12,14 +12,7 @@ export const HomePage = () => {
     <Grid container spacing={3}>
       {movies.map((movie) => (
         <Grid item key={movie.id} xs={12} sm={6} md={4} lg={3}>
-          <div>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={`Backdrop for ${movie.title}`}
-              style={{ width: "100%", height: "auto" }}
-            />
-            <div>{movie.title}</div>
-          </div>
+          <MovieCard movie={movie} />
         </Grid>
       ))}
     </Grid>
