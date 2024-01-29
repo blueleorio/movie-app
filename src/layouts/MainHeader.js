@@ -25,7 +25,7 @@ function MainHeader() {
             to="/page/1"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <GitHubIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <GitHubIcon sx={{ display: "flex", mr: 1 }} />
           </Link>
           <Typography
             variant="h6"
@@ -34,7 +34,7 @@ function MainHeader() {
             href="/page/1"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              flexGrow: 1, // Allow the title to take available space
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -44,8 +44,6 @@ function MainHeader() {
           >
             ムービー
           </Typography>
-
-          {/* Additional components */}
 
           {/* Switch Theme toggle */}
           <Box sx={{ flexGrow: 0 }}>
