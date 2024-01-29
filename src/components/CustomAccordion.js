@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -8,13 +8,25 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import SortIcon from "@mui/icons-material/Sort";
 import GenresChips from "./GenresChip";
+
+import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
+
 const CustomAccordion = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState("");
+
+  const { setQuery } = useAuth();
 
   const handleSearch = () => {
     // Handle search logic here
     console.log("Searching for:", searchTerm);
+    setQuery(searchTerm);
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearch();
+    }
   };
 
   return (
@@ -27,10 +39,11 @@ const CustomAccordion = () => {
       <AccordionDetails style={{ display: "flex", flexDirection: "column" }}>
         <TextField
           label="Search"
-          variant="outlined"
+          variant="standard"
           value={searchTerm}
+          style={{ flex: 1 }}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ flex: 1 }} // Set flex to 1 to fill the width
+          onKeyDown={handleKeyDown}
         />
         <IconButton color="primary" onClick={handleSearch}>
           <SearchIcon />

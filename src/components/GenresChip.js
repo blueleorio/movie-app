@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function GenresChips() {
-  const { movies, selectedGenreId, setSelectedGenreId } = useAuth();
+  const { selectedGenreId, setSelectedGenreId } = useAuth();
 
   const [genre, setGenre] = useState([]);
   const [loading, setLoading] = useState(true);

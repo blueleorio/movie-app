@@ -12,6 +12,8 @@ const AuthContextType = {
   setSelectedGenreId: null,
   currentPage: 1,
   setPage: null,
+  query: "",
+  setQuery: null,
 };
 
 const AuthContext = createContext(AuthContextType);
@@ -22,6 +24,7 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedGenreId, setSelectedGenreId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
 
   let signin = (newUser, callback) => {
     setUser(newUser);
@@ -35,16 +38,18 @@ export function AuthProvider({ children }) {
 
   let fetchMovies = async () => {
     try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${currentPage}`,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
-          },
-        }
-      );
+      let url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${currentPage}`;
+
+      if (query) {
+        url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=${currentPage}`;
+      }
+      const response = await axios.get(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
+        },
+      });
 
       setMovies(response.data.results);
       setIsLoading(false);
@@ -56,7 +61,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     fetchMovies();
-  }, [currentPage]); // eslint-disable-line
+  }, [currentPage, query]); // eslint-disable-line
 
   // Function to set the selected genre ID
   const handleSetSelectedGenreId = (genreId) => {
@@ -84,6 +89,8 @@ export function AuthProvider({ children }) {
     setSelectedGenreId: handleSetSelectedGenreId,
     currentPage,
     setPage: handleSetPage,
+    query,
+    setQuery,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
