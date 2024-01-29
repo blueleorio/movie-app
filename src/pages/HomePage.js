@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import { useAuth } from "../contexts/AuthContext";
 import MovieCard from "../components/MCard";
@@ -28,6 +29,9 @@ export const HomePage = () => {
         <CustomAccordion />
       </Grid>
       <Grid item xs={12} md={9}>
+        <Typography variant="h2" align="center" gutterBottom fontWeight="bold">
+          Upcoming Movies
+        </Typography>
         <Carousel
           animation="fade"
           stopAutoPlayOnHover="true"
@@ -59,10 +63,14 @@ export const HomePage = () => {
           ))}
         </Carousel>
       </Grid>
+      <Typography variant="h2" align="center" gutterBottom fontWeight="bold">
+        Popular Movies
+      </Typography>
 
       <Grid item xs={12} md={9} justifyContent="center">
         <Paging />
       </Grid>
+
       <Grid item xs={12} md={9}>
         <Grid container spacing={3}>
           {movies.map((movie) => (

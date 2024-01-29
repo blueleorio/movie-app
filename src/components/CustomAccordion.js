@@ -49,7 +49,7 @@ const CustomAccordion = () => {
         </IconButton>
 
         <Typography variant="h5" align="center" gutterBottom>
-          Genres
+          Filter:
         </Typography>
         <GenresChips />
       </AccordionDetails>

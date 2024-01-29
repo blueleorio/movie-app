@@ -20,7 +20,6 @@ function MainHeader() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "center" }}>
-          {/* Your existing components */}
           <Link
             to="/page/1"
             style={{ textDecoration: "none", color: "inherit" }}
