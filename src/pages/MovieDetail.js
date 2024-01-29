@@ -79,15 +79,14 @@ function MovieDetail() {
           </Grid>
           <Grid item xs={12} sm={6} md={8} lg={9}>
             <CardContent>
-              <Typography variant="h4">
+              <Typography variant="h3">
                 <Link href={movieDetail.homepage} underline="hover">
-                  {movieDetail.original_title}
+                  <strong>{movieDetail.original_title}</strong>
                 </Link>
-                <br />
-                <span className="tag release_date">
-                  ({movieDetail.release_date})
-                </span>
               </Typography>
+              <span className="tag release_date">
+                ({movieDetail.release_date})
+              </span>
 
               <div>
                 <Typography
