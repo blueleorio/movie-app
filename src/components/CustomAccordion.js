@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -9,7 +9,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import SortIcon from "@mui/icons-material/Sort";
 import GenresChips from "./GenresChip";
 
-import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 
 const CustomAccordion = () => {
@@ -33,7 +32,7 @@ const CustomAccordion = () => {
     <Accordion>
       <AccordionSummary expandIcon={<SortIcon />}>
         <Typography variant="h6" align="center">
-          OPTION
+          H I D E & S E E K
         </Typography>
       </AccordionSummary>
       <AccordionDetails style={{ display: "flex", flexDirection: "column" }}>

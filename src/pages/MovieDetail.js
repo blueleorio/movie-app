@@ -10,7 +10,6 @@ import Link from "@mui/material/Link";
 import { CardActionArea } from "@mui/material";
 import Chip from "@mui/material/Chip";
 
-// import MDetailCard from "../components/MDetailCard";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -24,7 +23,6 @@ const formatCurrency = (value) => {
 };
 
 function MovieDetail() {
-  // let location = useLocation();
   let auth = useAuth();
   console.log(auth.user);
 
@@ -128,7 +126,6 @@ function MovieDetail() {
           </Grid>
         </Grid>
       </Card>
-      {/* <MDetailCard movieDetail={movieDetail} loading={isLoading} /> */}
     </>
   );
 }
