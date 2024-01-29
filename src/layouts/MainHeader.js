@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+
 import Container from "@mui/material/Container";
 
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -48,7 +49,7 @@ function MainHeader() {
             to="/page/1"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <GitHubIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <GitHubIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           </Link>
           <Typography
             variant="h5"
