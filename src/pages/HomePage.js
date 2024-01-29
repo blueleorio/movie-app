@@ -1,14 +1,16 @@
 import React from "react";
-import Spinner from "../components/Spinner";
+import Carousel from "react-material-ui-carousel";
+
 import Grid from "@mui/material/Grid";
 
 import { useAuth } from "../contexts/AuthContext";
 import MovieCard from "../components/MCard";
 import CustomAccordion from "../components/CustomAccordion";
 import Paging from "../components/Paging";
+import Spinner from "../components/Spinner";
 
 export const HomePage = () => {
-  const { movies, isLoading } = useAuth();
+  const { movies, isLoading, upcomingMovies } = useAuth();
 
   if (isLoading) return <Spinner />;
 
@@ -16,6 +18,13 @@ export const HomePage = () => {
     <Grid container spacing={3} justifyContent="center" alignItems="center">
       <Grid item xs={12} md={9}>
         <CustomAccordion />
+      </Grid>
+      <Grid item xs={12} md={9}>
+        <Carousel>
+          {upcomingMovies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </Carousel>
       </Grid>
       <Grid item xs={12} md={9} justifyContent="center">
         <Paging />

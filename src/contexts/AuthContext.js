@@ -14,6 +14,7 @@ const AuthContextType = {
   setPage: null,
   query: "",
   setQuery: null,
+  upcomingMovies: [],
 };
 
 const AuthContext = createContext(AuthContextType);
@@ -25,7 +26,7 @@ export function AuthProvider({ children }) {
   const [selectedGenreId, setSelectedGenreId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
-
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
   let signin = (newUser, callback) => {
     setUser(newUser);
     callback();
@@ -59,9 +60,34 @@ export function AuthProvider({ children }) {
     }
   };
 
+  let fetchingUpcomingMovies = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNGRiNjBiOTg4ZjlmOWIxNWQ3ODNkODZhNTkzYTM5MiIsInN1YiI6IjY1NzZkZDU2NGJmYTU0MDBjNDA5YzEzYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LczGGFStgjMCazXyYf0fo32UtLXgCo29mfESeSxoQ5M",
+          },
+        }
+      );
+
+      setUpcomingMovies(response.data.results);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchMovies();
   }, [currentPage, query]); // eslint-disable-line
+
+  useEffect(() => {
+    fetchingUpcomingMovies();
+  }, []);
 
   // Function to set the selected genre ID
   const handleSetSelectedGenreId = (genreId) => {
@@ -91,6 +117,7 @@ export function AuthProvider({ children }) {
     setPage: handleSetPage,
     query,
     setQuery,
+    upcomingMovies,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
