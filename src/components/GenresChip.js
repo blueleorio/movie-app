@@ -7,7 +7,6 @@ export default function GenresChips() {
   const { selectedGenreId, setSelectedGenreId } = useAuth();
 
   const [genre, setGenre] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGenre = async () => {
@@ -28,10 +27,8 @@ export default function GenresChips() {
         const data = await response.json();
 
         setGenre(data.genres);
-        setLoading(false);
       } catch (err) {
         console.error(err);
-        setLoading(false);
       }
     };
     fetchGenre();
